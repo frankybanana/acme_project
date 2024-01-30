@@ -7,18 +7,16 @@ from .utils import calculate_birthday_countdown
 
 # Добавим опциональный параметр pk.
 def birthday(request, pk=None):
-    # Если в запросе указан pk (если получен запрос на редактирование объекта):
     if pk is not None:
-        # Получаем объект модели или выбрасываем 404 ошибку.
         instance = get_object_or_404(Birthday, pk=pk)
-    # Если в запросе не указан pk
-    # (если получен запрос к странице создания записи):
     else:
-        # Связывать форму с объектом не нужно, установим значение None.
         instance = None
-    # Передаём в форму либо данные из запроса, либо None.
-    # В случае редактирования прикрепляем объект модели.
-    form = BirthdayForm(request.POST or None, instance=instance)
+    form = BirthdayForm(
+        request.POST or None,
+        # Файлы, переданные в запросе, указываются отдельно.
+        files=request.FILES or None,
+        instance=instance
+    )
     # Остальной код без изменений.
     context = {'form': form}
     # Сохраняем данные, полученные из формы, и отправляем ответ:
