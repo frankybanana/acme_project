@@ -11,7 +11,6 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('admin/', admin.site.urls),
     path('birthday/', include('birthday.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
     path(
         'auth/registration/',
         CreateView.as_view(
@@ -21,6 +20,7 @@ urlpatterns = [
         ),
         name='registration',
     ),
+    path('auth/', include('django.contrib.auth.urls')),
     # В конце добавляем к списку вызов функции static.
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
